@@ -19,7 +19,29 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func loadBlue(sender: AnyObject){
+        // USE sender to pass data
+        var str = "We came from the 1st screen"
+        performSegueWithIdentifier("goToBlue", sender: str)
+    }
 
+    @IBAction func loadYellow(sender: AnyObject) {
+        performSegueWithIdentifier("goToYellow", sender: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // work right before view loads
+        // next VC has already been initialized
+        segue.destinationViewController
+        if segue.identifier == "goToBlue" {
+            if let blueVC = segue.destinationViewController as? BlueVC {
+                if let theString = sender as? String {
+                    blueVC.transferText = theString
+                }
+            }
+        }
+    }
 
 }
 
